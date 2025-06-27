@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8"></meta>
+  <title>Contact Us | Digital Tools World</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .contact-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .error-message {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Your Name*</label>
+        <input id="name" name="name" required="" type="text" />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Your Email*</label>
+        <input id="email" name="email" required="" type="email" />
+      </div>
+
+      <!-- Subject -->
+      <div class="form-group">
+        <label for="subject">Subject*</label>
+        <input id="subject" name="subject" required="" type="text" />
+      </div>
+
+      <!-- Social Link (Optional) -->
+      <div class="form-group">
+        <label for="social">Social Link (Optional)</label>
+        <input id="social" name="social" type="url" />
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label for="message">Your Message*</label>
+        <textarea id="message" name="message" required=""></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="contact-btn" type="submit">Send Message</button>
+    </form>
+
+    <div class="success-message" id="successMessage">
+      ✅ Thank you! Your message has been sent.
+    </div>
+    <div class="error-message" id="errorMessage">
+      ❌ Sorry! There was an error sending your message.
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch('YOUR_FORM_ENDPOINT_HERE', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          successMessage.style.display = 'block';
+          errorMessage.style.display = 'none';
+          form.reset();
+        } else {
+          successMessage.style.display = 'none';
+          errorMessage.style.display = 'block';
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+      });
+    });
+  </script>
+
+</body>
+</html>
